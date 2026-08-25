@@ -33,14 +33,14 @@ const pipelineStages = {
     tag: "Container Registry",
     filename: "Docker Hub CLI",
     desc: "The built Docker image is tagged and pushed to Docker Hub under the registry tag 'latest' so that remote servers can pull the updated image.",
-    code: `docker build -t <username>/automated-cicd-portfolio:latest .\ndocker login -u \${{ secrets.DOCKER_USERNAME }} -p \${{ secrets.DOCKER_PASSWORD }}\ndocker push <username>/automated-cicd-portfolio:latest`
+    code: `docker build -t vrundzzz/automated-cicd-portfolio:latest .\ndocker login -u \${{ secrets.DOCKER_USERNAME }} -p \${{ secrets.DOCKER_PASSWORD }}\ndocker push vrundzzz/automated-cicd-portfolio:latest`
   },
   6: {
     title: "Stage 6: AWS EC2 Server Deployment (SSH)",
     tag: "Cloud Infrastructure",
     filename: "EC2 Remote Bash Execution",
     desc: "GitHub Actions securely connects to AWS EC2 over SSH using GitHub Secrets. It pulls the new Docker image, stops the old container, and starts the fresh container.",
-    code: `# Commands executed over SSH on AWS EC2:\ndocker pull <username>/automated-cicd-portfolio:latest\ndocker stop portfolio || true\ndocker rm portfolio || true\ndocker run -d -p 80:80 --name portfolio <username>/automated-cicd-portfolio:latest`
+    code: `# Commands executed over SSH on AWS EC2:\ndocker pull vrundzzz/automated-cicd-portfolio:latest\ndocker stop portfolio || true\ndocker rm portfolio || true\ndocker run -d -p 80:80 --name portfolio vrundzzz/automated-cicd-portfolio:latest`
   },
   7: {
     title: "Stage 7: Live Website via Nginx",
