@@ -1,0 +1,58 @@
+name: Automated CI/CD Deployment Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout repository source code
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Docker Buildx runner
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # Step 3: Authenticate with Docker Hub
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # Step 4: Build and Push Docker image to Docker Hub
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/automated-cicd-portfolio:latest
+
+      # Step 5: SSH into AWS EC2 & Deploy Container
+      - name: Deploy to AWS EC2 Instance via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            echo "Pulling latest Docker image from Docker Hub..."
+            docker pull ${{ secrets.DOCKER_USERNAME }}/automated-cicd-portfolio:latest
+
+            echo "Stopping existing portfolio container if running..."
+            docker stop portfolio || true
+
+            echo "Removing existing portfolio container..."
+            docker rm portfolio || true
+
+            echo "Starting new portfolio container on port 80..."
+            docker run -d -p 80:80 --name portfolio ${{ secrets.DOCKER_USERNAME }}/automated-cicd-portfolio:latest
+
+            echo "Deployment completed successfully!"
+            docker ps -f name=portfolio
