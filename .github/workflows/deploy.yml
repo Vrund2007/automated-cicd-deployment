@@ -32,7 +32,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/automated-cicd-portfolio:latest
+          tags: vrundzzz/automated-cicd-portfolio:latest
 
       # Step 5: SSH into AWS EC2 & Deploy Container
       - name: Deploy to AWS EC2 Instance via SSH
@@ -43,7 +43,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             echo "Pulling latest Docker image from Docker Hub..."
-            docker pull ${{ secrets.DOCKER_USERNAME }}/automated-cicd-portfolio:latest
+            docker pull vrundzzz/automated-cicd-portfolio:latest
 
             echo "Stopping existing portfolio container if running..."
             docker stop portfolio || true
@@ -52,7 +52,7 @@ jobs:
             docker rm portfolio || true
 
             echo "Starting new portfolio container on port 80..."
-            docker run -d -p 80:80 --name portfolio ${{ secrets.DOCKER_USERNAME }}/automated-cicd-portfolio:latest
+            docker run -d -p 80:80 --name portfolio vrundzzz/automated-cicd-portfolio:latest
 
             echo "Deployment completed successfully!"
             docker ps -f name=portfolio
