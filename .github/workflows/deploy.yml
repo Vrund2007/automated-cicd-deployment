@@ -42,17 +42,25 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
+            echo "Checking if Docker is installed on EC2..."
+            if ! command -v docker &> /dev/null; then
+              echo "Docker not found on EC2. Installing Docker automatically..."
+              sudo apt-get update -y
+              sudo apt-get install -y docker.io
+              sudo systemctl enable --now docker
+            fi
+
             echo "Pulling latest Docker image from Docker Hub..."
-            docker pull vrundzzz/automated-cicd-portfolio:latest
+            sudo docker pull vrundzzz/automated-cicd-portfolio:latest
 
             echo "Stopping existing portfolio container if running..."
-            docker stop portfolio || true
+            sudo docker stop portfolio || true
 
             echo "Removing existing portfolio container..."
-            docker rm portfolio || true
+            sudo docker rm portfolio || true
 
             echo "Starting new portfolio container on port 80..."
-            docker run -d -p 80:80 --name portfolio vrundzzz/automated-cicd-portfolio:latest
+            sudo docker run -d -p 80:80 --name portfolio vrundzzz/automated-cicd-portfolio:latest
 
             echo "Deployment completed successfully!"
-            docker ps -f name=portfolio
+            sudo docker ps -f name=portfolio
