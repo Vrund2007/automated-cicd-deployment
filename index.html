@@ -3,234 +3,251 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Automated CI/CD Deployment Pipeline Demo Application featuring Docker, Nginx, GitHub Actions, and AWS EC2.">
-  <title>Automated CI/CD Pipeline | Live Operations Hub</title>
+  <meta name="description" content="Automated CI/CD Deployment Pipeline Operations Dashboard. Real-time deployment status, architecture flowchart, and system diagnostics.">
+  <title>CI/CD Pipeline Operations Dashboard</title>
   
-  <!-- Fonts -->
+  <!-- Premium Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="app-container">
+  <div class="layout">
     
-    <!-- Top Navigation Bar -->
-    <header class="navbar">
-      <div class="logo-group">
-        <div class="pipeline-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+    <!-- Top Header -->
+    <header class="header">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="16 18 22 12 16 6"></polyline>
+            <polyline points="8 6 2 12 8 18"></polyline>
           </svg>
         </div>
-        <div>
-          <h1 class="nav-title">Automated CI/CD Pipeline</h1>
-          <span class="nav-subtitle">Live Operations & Deployment Dashboard</span>
+        <div class="brand-text">
+          <span class="brand-name">PIPELINE OS</span>
+          <span class="brand-sub">Continuous Deployment Infrastructure</span>
         </div>
       </div>
-      
-      <div class="status-cluster">
-        <div class="status-badge status-healthy" id="pipelineStatus">
-          <span class="status-dot"></span>
-          <span class="status-text">Pipeline: Healthy</span>
+
+      <div class="header-metrics">
+        <div class="pill pill-success">
+          <span class="indicator"></span>
+          <span>Pipeline Active</span>
         </div>
-        <div class="env-badge">
+        <div class="pill pill-neutral">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
             <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
             <line x1="6" y1="6" x2="6.01" y2="6"></line>
             <line x1="6" y1="18" x2="6.01" y2="18"></line>
           </svg>
-          <span>AWS EC2 &bull; Nginx Container</span>
+          <span>AWS EC2 &bull; Ubuntu</span>
         </div>
-        <div class="version-tag" id="buildVersionTag">v1.4.2</div>
+        <div class="pill pill-version" id="buildVersionTag">v1.4.2</div>
       </div>
     </header>
 
-    <!-- Main Content Area -->
-    <main class="main-content">
+    <!-- Main Workspace -->
+    <main class="content">
       
-      <!-- Live Deployment Proof & Verification Banner -->
-      <section class="verification-hero glass-panel">
-        <div class="hero-header">
-          <div class="hero-title-group">
-            <span class="tag-label">AUTOMATED DEPLOYMENT VERIFIED</span>
-            <h2>Production Build Status</h2>
+      <!-- Deployment Status Panel -->
+      <section class="panel hero-panel">
+        <div class="panel-header">
+          <div>
+            <span class="kicker">DEPLOYMENT STATUS</span>
+            <h1 class="panel-title">Production Runtime Overview</h1>
           </div>
-          <div class="uptime-widget">
-            <span class="uptime-label">Container Uptime</span>
-            <span class="uptime-value" id="uptimeTimer">00:00:00</span>
+          <div class="uptime-box">
+            <span class="uptime-caption">Container Uptime</span>
+            <span class="uptime-time" id="uptimeTimer">00:00:00</span>
           </div>
         </div>
 
-        <div class="hero-body">
-          <div class="deploy-card">
-            <div class="deploy-card-header">
-              <span class="card-icon">🚀</span>
+        <div class="status-card">
+          <div class="status-card-top">
+            <div class="status-title-group">
+              <div class="icon-frame">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+              </div>
               <div>
-                <h3 id="currentBuildTitle">Deployment Version: v1.4.2</h3>
-                <p class="commit-info">Last Deployed Commit: <code id="commitHash">f6cdad9 (fix: auto-install Docker on EC2)</code></p>
+                <h2 id="currentBuildTitle">Deployment Version: v1.4.2</h2>
+                <p class="commit-reference">Commit Hash: <code id="commitHash">fa1579a (fix: recruiter verification badges)</code></p>
               </div>
-              <span class="badge badge-success">Live on EC2</span>
             </div>
-            
-            <p class="hero-description">
-              This application is automatically built, containerized, and deployed using a full 
-              <strong>GitHub Actions $\rightarrow$ Docker Hub $\rightarrow$ AWS EC2</strong> deployment pipeline. 
-              Any <code class="inline-code">git push</code> to the <code class="inline-code">main</code> branch automatically updates this live site without manual SSH intervention.
-            </p>
+            <span class="tag tag-live">Target: AWS EC2</span>
+          </div>
 
-            <div class="hero-stats-grid">
-              <div class="stat-box">
-                <span class="stat-label">Source Control</span>
-                <span class="stat-val">GitHub (main)</span>
-              </div>
-              <div class="stat-box">
-                <span class="stat-label">CI/CD Runner</span>
-                <span class="stat-val">GitHub Actions</span>
-              </div>
-              <div class="stat-box">
-                <span class="stat-label">Registry</span>
-                <span class="stat-val">Docker Hub</span>
-              </div>
-              <div class="stat-box">
-                <span class="stat-label">Web Server</span>
-                <span class="stat-val">Nginx / Port 80</span>
-              </div>
+          <p class="summary-text">
+            Automated deployment pipeline configured with GitHub Actions, Docker Hub container registry, and AWS EC2 target execution. Pushes to <code class="mono-code">main</code> or <code class="mono-code">demo</code> trigger automated container builds and zero-downtime remote redeployments over SSH.
+          </p>
+
+          <div class="metrics-grid">
+            <div class="metric-item">
+              <span class="metric-key">Source Control</span>
+              <span class="metric-val">GitHub (main / demo)</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-key">CI Orchestrator</span>
+              <span class="metric-val">GitHub Actions</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-key">Container Registry</span>
+              <span class="metric-val">Docker Hub (vrundzzz)</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-key">Web Engine</span>
+              <span class="metric-val">Nginx / Port 80</span>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Interactive Architectural Pipeline Diagram -->
-      <section class="section-container">
-        <div class="section-header">
+      <!-- Architecture Pipeline Diagram -->
+      <section class="panel">
+        <div class="panel-header">
           <div>
-            <h2>Deployment Pipeline Flowchart</h2>
-            <p class="section-subtitle">Click any stage to inspect execution details and automation scripts.</p>
+            <span class="kicker">SYSTEM ARCHITECTURE</span>
+            <h2 class="panel-title">End-to-End Pipeline Flow</h2>
           </div>
         </div>
 
-        <div class="pipeline-flowchart-container glass-panel">
-          <div class="flowchart-track">
+        <div class="flow-wrapper">
+          <div class="flow-track">
             
-            <!-- Step 1 -->
-            <div class="flow-node active" data-stage="1">
-              <div class="node-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
-                  <polyline points="14 2 14 8 20 8"/>
+            <div class="flow-item active" data-stage="1">
+              <div class="item-head">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
                 </svg>
+                <span class="item-num">01</span>
               </div>
-              <span class="node-title">1. Code Base</span>
-              <span class="node-sub">HTML / CSS / JS</span>
+              <span class="item-name">Source Code</span>
+              <span class="item-meta">HTML / CSS / JS</span>
             </div>
 
-            <div class="flow-arrow">&rarr;</div>
-
-            <!-- Step 2 -->
-            <div class="flow-node" data-stage="2">
-              <div class="node-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="18" cy="18" r="3"/>
-                  <circle cx="6" cy="6" r="3"/>
-                  <path d="M6 21V9a9 9 0 0 0 9 9"/>
-                </svg>
-              </div>
-              <span class="node-title">2. Git / GitHub</span>
-              <span class="node-sub">Push to main</span>
+            <div class="flow-divider">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
             </div>
 
-            <div class="flow-arrow">&rarr;</div>
-
-            <!-- Step 3 -->
-            <div class="flow-node" data-stage="3">
-              <div class="node-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polygon points="12 2 2 7 12 12 22 7 12 2"/>
-                  <polyline points="2 17 12 22 22 17"/>
-                  <polyline points="2 12 12 17 22 12"/>
+            <div class="flow-item" data-stage="2">
+              <div class="item-head">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="18" cy="18" r="3"></circle>
+                  <circle cx="6" cy="6" r="3"></circle>
+                  <path d="M6 21V9a9 9 0 0 0 9 9"></path>
                 </svg>
+                <span class="item-num">02</span>
               </div>
-              <span class="node-title">3. GitHub Actions</span>
-              <span class="node-sub">CI/CD Runner</span>
+              <span class="item-name">GitHub Repo</span>
+              <span class="item-meta">Git Push Event</span>
             </div>
 
-            <div class="flow-arrow">&rarr;</div>
-
-            <!-- Step 4 -->
-            <div class="flow-node" data-stage="4">
-              <div class="node-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-                </svg>
-              </div>
-              <span class="node-title">4. Docker Build</span>
-              <span class="node-sub">Nginx Image</span>
+            <div class="flow-divider">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
             </div>
 
-            <div class="flow-arrow">&rarr;</div>
-
-            <!-- Step 5 -->
-            <div class="flow-node" data-stage="5">
-              <div class="node-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="12" cy="12" r="10"/>
-                  <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
-                  <path d="M2 12h20"/>
+            <div class="flow-item" data-stage="3">
+              <div class="item-head">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                  <polyline points="2 17 12 22 22 17"></polyline>
+                  <polyline points="2 12 12 17 22 12"></polyline>
                 </svg>
+                <span class="item-num">03</span>
               </div>
-              <span class="node-title">5. Docker Hub</span>
-              <span class="node-sub">Push :latest</span>
+              <span class="item-name">GitHub Actions</span>
+              <span class="item-meta">CI Runner Job</span>
             </div>
 
-            <div class="flow-arrow">&rarr;</div>
+            <div class="flow-divider">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </div>
 
-            <!-- Step 6 -->
-            <div class="flow-node" data-stage="6">
-              <div class="node-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <div class="flow-item" data-stage="4">
+              <div class="item-head">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                </svg>
+                <span class="item-num">04</span>
+              </div>
+              <span class="item-name">Docker Build</span>
+              <span class="item-meta">Nginx Packaging</span>
+            </div>
+
+            <div class="flow-divider">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </div>
+
+            <div class="flow-item" data-stage="5">
+              <div class="item-head">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span class="item-num">05</span>
+              </div>
+              <span class="item-name">Docker Hub</span>
+              <span class="item-meta">Image Registry</span>
+            </div>
+
+            <div class="flow-divider">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </div>
+
+            <div class="flow-item" data-stage="6">
+              <div class="item-head">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
                   <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
-                  <line x1="6" y1="6" x2="6.01" y2="6"></line>
-                  <line x1="6" y1="18" x2="6.01" y2="18"></line>
                 </svg>
+                <span class="item-num">06</span>
               </div>
-              <span class="node-title">6. AWS EC2</span>
-              <span class="node-sub">SSH Docker Pull</span>
+              <span class="item-name">AWS EC2</span>
+              <span class="item-meta">SSH Execution</span>
             </div>
 
-            <div class="flow-arrow">&rarr;</div>
+            <div class="flow-divider">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </div>
 
-            <!-- Step 7 -->
-            <div class="flow-node" data-stage="7">
-              <div class="node-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="12" cy="12" r="10"/>
-                  <line x1="2" y1="12" x2="22" y2="12"/>
-                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            <div class="flow-item" data-stage="7">
+              <div class="item-head">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
                 </svg>
+                <span class="item-num">07</span>
               </div>
-              <span class="node-title">7. Live Nginx</span>
-              <span class="node-sub">Port 80 Served</span>
+              <span class="item-name">Nginx Web Server</span>
+              <span class="item-meta">HTTP Port 80</span>
             </div>
 
           </div>
 
-          <!-- Stage Detail Inspector Card -->
-          <div class="stage-inspector" id="stageInspector">
-            <div class="inspector-header">
-              <h3 id="stageTitle">Stage 1: Static Website Source Code</h3>
-              <span class="stage-tag" id="stageTag">Local Environment</span>
+          <!-- Inspector Panel -->
+          <div class="inspector" id="stageInspector">
+            <div class="inspector-top">
+              <h3 class="inspector-title" id="stageTitle">Stage 1: Static Website Source Code</h3>
+              <span class="inspector-tag" id="stageTag">Local Environment</span>
             </div>
-            <p id="stageDesc" class="inspector-desc">
-              The application frontend is built using clean HTML5, CSS3, and JavaScript. No complex frameworks or heavy node modules are required, making it fast, lightweight, and ideal for containerization inside an Nginx image.
+            <p class="inspector-desc" id="stageDesc">
+              Lightweight static frontend application built with HTML5, CSS3, and JavaScript. Optimized for quick container compilation inside Nginx Alpine without bulky dependencies.
             </p>
-            <div class="inspector-code-block">
-              <div class="code-header">
-                <span id="stageFilename">portfolio/index.html</span>
-                <button class="copy-btn" onclick="copyStageCode()">Copy Snippet</button>
+            <div class="code-box">
+              <div class="code-top">
+                <span id="stageFilename" class="code-file">portfolio/index.html</span>
+                <button class="btn-copy" onclick="copyStageCode()">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                  </svg>
+                  <span>Copy Snippet</span>
+                </button>
               </div>
               <pre><code id="stageCodeSnippet">├── index.html
 ├── style.css
@@ -241,108 +258,118 @@
         </div>
       </section>
 
-      <!-- DevOps Troubleshooting & Commands Cheatsheet -->
-      <section class="section-container">
-        <div class="section-header">
+      <!-- Diagnostics Matrix Section -->
+      <section class="panel">
+        <div class="panel-header">
           <div>
-            <h2>DevOps Troubleshooting & Diagnostic Suite</h2>
-            <p class="section-subtitle">Key Linux & Docker commands for monitoring and debugging issues during deployment.</p>
+            <span class="kicker">SYSTEM DIAGNOSTICS</span>
+            <h2 class="panel-title">Infrastructure & Container Command Matrix</h2>
           </div>
         </div>
 
-        <div class="troubleshoot-grid">
+        <div class="diag-grid">
           
-          <!-- Card 1: Docker Inspection -->
-          <div class="command-card glass-panel">
-            <div class="cmd-card-header">
-              <span class="cmd-icon">🐳</span>
-              <h3>Docker Container Diagnostics</h3>
+          <!-- Card 1 -->
+          <div class="diag-card">
+            <div class="diag-card-head">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+              </svg>
+              <h3>Docker Container Runtime</h3>
             </div>
-            <ul class="cmd-list">
-              <li>
-                <div class="cmd-row">
+            <div class="cmd-stack">
+              <div class="cmd-item">
+                <div class="cmd-line">
                   <code>docker ps</code>
-                  <button class="copy-mini" data-cmd="docker ps">Copy</button>
+                  <button class="btn-sm" data-cmd="docker ps">Copy</button>
                 </div>
-                <span class="cmd-desc">List active running containers on EC2</span>
-              </li>
-              <li>
-                <div class="cmd-row">
+                <span class="cmd-info">List active running container instances</span>
+              </div>
+              <div class="cmd-item">
+                <div class="cmd-line">
                   <code>docker logs portfolio</code>
-                  <button class="copy-mini" data-cmd="docker logs portfolio">Copy</button>
+                  <button class="btn-sm" data-cmd="docker logs portfolio">Copy</button>
                 </div>
-                <span class="cmd-desc">Inspect stdout/stderr output from Nginx</span>
-              </li>
-              <li>
-                <div class="cmd-row">
+                <span class="cmd-info">Inspect Nginx container stdout/stderr logs</span>
+              </div>
+              <div class="cmd-item">
+                <div class="cmd-line">
                   <code>docker inspect portfolio</code>
-                  <button class="copy-mini" data-cmd="docker inspect portfolio">Copy</button>
+                  <button class="btn-sm" data-cmd="docker inspect portfolio">Copy</button>
                 </div>
-                <span class="cmd-desc">View container network & port bindings</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Card 2: Linux System Health -->
-          <div class="command-card glass-panel">
-            <div class="cmd-card-header">
-              <span class="cmd-icon">🐧</span>
-              <h3>Linux Server Health</h3>
+                <span class="cmd-info">View container networking & port bindings</span>
+              </div>
             </div>
-            <ul class="cmd-list">
-              <li>
-                <div class="cmd-row">
-                  <code>systemctl status docker</code>
-                  <button class="copy-mini" data-cmd="systemctl status docker">Copy</button>
-                </div>
-                <span class="cmd-desc">Check if Docker daemon is active and running</span>
-              </li>
-              <li>
-                <div class="cmd-row">
-                  <code>df -h && free -h</code>
-                  <button class="copy-mini" data-cmd="df -h && free -h">Copy</button>
-                </div>
-                <span class="cmd-desc">Check disk space and RAM usage on EC2</span>
-              </li>
-              <li>
-                <div class="cmd-row">
-                  <code>ss -tulpn | grep 80</code>
-                  <button class="copy-mini" data-cmd="ss -tulpn | grep 80">Copy</button>
-                </div>
-                <span class="cmd-desc">Verify Port 80 listener status</span>
-              </li>
-            </ul>
           </div>
 
-          <!-- Card 3: Manual Deployment Recovery -->
-          <div class="command-card glass-panel">
-            <div class="cmd-card-header">
-              <span class="cmd-icon">🛠️</span>
+          <!-- Card 2 -->
+          <div class="diag-card">
+            <div class="diag-card-head">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+              </svg>
+              <h3>Linux Host Diagnostics</h3>
+            </div>
+            <div class="cmd-stack">
+              <div class="cmd-item">
+                <div class="cmd-line">
+                  <code>systemctl status docker</code>
+                  <button class="btn-sm" data-cmd="systemctl status docker">Copy</button>
+                </div>
+                <span class="cmd-info">Check Docker system daemon status</span>
+              </div>
+              <div class="cmd-item">
+                <div class="cmd-line">
+                  <code>df -h && free -h</code>
+                  <button class="btn-sm" data-cmd="df -h && free -h">Copy</button>
+                </div>
+                <span class="cmd-info">Inspect EC2 disk utilization & free memory</span>
+              </div>
+              <div class="cmd-item">
+                <div class="cmd-line">
+                  <code>ss -tulpn | grep 80</code>
+                  <button class="btn-sm" data-cmd="ss -tulpn | grep 80">Copy</button>
+                </div>
+                <span class="cmd-info">Verify active listener on HTTP Port 80</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="diag-card">
+            <div class="diag-card-head">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 2v6h-6"></path>
+                <path d="M3 12a9 9 0 0 1 15-6.7L21 8"></path>
+                <path d="M3 22v-6h6"></path>
+                <path d="M21 12a9 9 0 0 1-15 6.7L3 16"></path>
+              </svg>
               <h3>Manual Deployment Fallback</h3>
             </div>
-            <ul class="cmd-list">
-              <li>
-                <div class="cmd-row">
-                  <code>docker pull &lt;username&gt;/automated-cicd-portfolio:latest</code>
-                  <button class="copy-mini" data-cmd="docker pull vrundzzz/automated-cicd-portfolio:latest">Copy</button>
+            <div class="cmd-stack">
+              <div class="cmd-item">
+                <div class="cmd-line">
+                  <code>docker pull vrundzzz/automated-cicd-portfolio:latest</code>
+                  <button class="btn-sm" data-cmd="docker pull vrundzzz/automated-cicd-portfolio:latest">Copy</button>
                 </div>
-                <span class="cmd-desc">Manually pull fresh image from Docker Hub</span>
-              </li>
-              <li>
-                <div class="cmd-row">
+                <span class="cmd-info">Fetch fresh container image from registry</span>
+              </div>
+              <div class="cmd-item">
+                <div class="cmd-line">
                   <code>docker stop portfolio && docker rm portfolio</code>
-                  <button class="copy-mini" data-cmd="docker stop portfolio && docker rm portfolio">Copy</button>
+                  <button class="btn-sm" data-cmd="docker stop portfolio && docker rm portfolio">Copy</button>
                 </div>
-                <span class="cmd-desc">Clean up outdated existing container</span>
-              </li>
-              <li>
-                <div class="cmd-row">
+                <span class="cmd-info">Clean up previous container instance</span>
+              </div>
+              <div class="cmd-item">
+                <div class="cmd-line">
                   <code>docker run -d -p 80:80 --name portfolio ...</code>
-                  <button class="copy-mini" data-cmd="docker run -d -p 80:80 --name portfolio vrundzzz/automated-cicd-portfolio:latest">Copy</button>
+                  <button class="btn-sm" data-cmd="docker run -d -p 80:80 --name portfolio vrundzzz/automated-cicd-portfolio:latest">Copy</button>
                 </div>
-                <span class="cmd-desc">Launch container attached to HTTP Port 80</span>
-              </li>
-            </ul>
+                <span class="cmd-info">Launch container bound to HTTP Port 80</span>
+              </div>
+            </div>
           </div>
 
         </div>
@@ -352,15 +379,15 @@
 
     <!-- Footer -->
     <footer class="footer">
-      <div class="footer-content">
-        <p>Automated CI/CD Deployment Pipeline Demo &bull; Built with Git, GitHub Actions, Docker, AWS EC2, & Nginx</p>
-        <div class="footer-links">
-          <span>Environment: Linux / AWS EC2</span>
-          <span>&bull;</span>
-          <span>Status: Active Pipeline</span>
-        </div>
+      <div class="footer-inner">
+        <span>Continuous Deployment Pipeline OS</span>
+        <span>&bull;</span>
+        <span>AWS EC2 &bull; Docker Hub &bull; GitHub Actions</span>
+        <span>&bull;</span>
+        <span>Nginx Alpine Runtime</span>
       </div>
     </footer>
+
   </div>
 
   <script src="script.js"></script>
