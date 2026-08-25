@@ -51,6 +51,9 @@ jobs:
               sudo systemctl enable --now docker
             fi
 
+            echo "Ensuring OS firewall allows Port 80..."
+            sudo ufw allow 80/tcp || true
+
             echo "Pulling latest Docker image from Docker Hub..."
             sudo docker pull vrundzzz/automated-cicd-portfolio:latest
 
